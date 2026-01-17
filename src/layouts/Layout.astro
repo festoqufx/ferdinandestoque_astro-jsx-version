@@ -1,0 +1,568 @@
+---
+// Main Layout
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Ferdinand Estoque | Web Design & Development' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hi, I am Ferdinand Belleza Estoque a.k.a. Black Raven, I design and build functional websites and this is my website portfolio." />
+    <meta name="keywords" content="Ferdinand Estoque, Ferdinand Belleza Estoque, Estoque, Black Raven Estoque, Raven Estoque, Ravenom" />
+    <meta name="author" content="Ferdinand Estoque" />
+    <title>{title}</title>
+    
+    <link rel="icon" type="image/png" href="/img/estoque1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:400,500,700,900|Raleway:900|Oswald:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- 3d box -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/component.css" />
+    <script src="/assets/js/modernizr.custom.js" defer></script>
+    
+    <!-- 3d slider -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/slicebox.css" />
+    <script type="text/javascript" src="/assets/js/modernizr.custom.46884.js" defer></script>
+    
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-W5SBWX5D');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-91CCV77503"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-91CCV77503');
+    </script>
+  </head>
+  <body id="s2k">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5SBWX5D"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <Header />
+    
+    <main>
+      <slot />
+    </main>
+    
+    <Footer />
+
+    <!-- Vendor JS Files -->
+    <script is:inline src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script is:inline src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    
+    <!-- Ensure TweenMax is available globally -->
+    <script is:inline>
+      if (!window.TweenMax) {
+        console.warn('TweenMax not found, trying to load...');
+      } else {
+        console.log('TweenMax loaded successfully');
+      }
+    </script>
+    <script is:inline src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script is:inline src="/assets/vendor/php-email-form/validate.js"></script>
+    
+    <!-- jQuery Core - needed before other jQuery plugins -->
+    <script is:inline src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script is:inline src="/assets/js/jquery-1.12.0.min.js"></script>
+    
+    <!-- Template Perspective JS File -->
+    <script is:inline src="/assets/js/TweenMax.min.js"></script>
+    <script is:inline src="/assets/js/function.js"></script>
+    
+    <!-- Template Main JS File -->
+    <script is:inline src="/assets/js/main.js"></script>
+    
+    <!-- jQuery UI and Slicebox for gallery -->
+    <script is:inline src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script is:inline src="/assets/js/jquery.slicebox.js"></script>
+
+    <!-- Global Initialization Script -->
+    <script is:inline>
+      // Log to verify scripts are loading
+      console.log('Layout.astro initialization script loaded');
+      
+      function init() {
+        console.log('init() called');
+        initializeCarousel();
+        initializeGallery();
+        initializeLightbox();
+        initializeTextAnimations();
+        initializePortfolio();
+        initializeHoverEffects();
+      }
+      
+      function initializeCarousel() {
+        // Carousel is now handled by Carousel.astro component with native JavaScript
+        console.log('Carousel initialized via Astro component');
+      }
+      
+      function initializeGallery() {
+        console.log('Initializing gallery...');
+        jQuery(function($) {
+          if ($('#sb-slider').length > 0) {
+            console.log('Gallery element found');
+            if (typeof $.slicebox !== 'undefined') {
+              console.log('Slicebox plugin found, initializing...');
+              var Page = (function() {
+                var $navArrows = $('#nav-arrows').hide(),
+                  $shadow = $('#shadow').hide(),
+                  slicebox = $('#sb-slider').slicebox({
+                    onReady: function() {
+                      console.log('Slicebox ready');
+                      $navArrows.show();
+                      $shadow.show();
+                    },
+                    orientation: 'r',
+                    cuboidsRandom: true,
+                    disperseFactor: 30
+                  }),
+                  init = function() {
+                    initEvents();
+                  },
+                  initEvents = function() {
+                    $navArrows.children(':first').on('click', function() {
+                      slicebox.next();
+                      return false;
+                    });
+                    $navArrows.children(':last').on('click', function() {
+                      slicebox.previous();
+                      return false;
+                    });
+                  };
+                return {
+                  init: init
+                };
+              })();
+              Page.init();
+            } else {
+              console.warn('Slicebox plugin not found');
+            }
+          } else {
+            console.log('Gallery element not found');
+          }
+        });
+      }
+      
+      function initializeLightbox() {
+        console.log('Initializing lightbox...');
+        document.addEventListener('DOMContentLoaded', function() {
+          if (window.GLightbox) {
+            console.log('GLightbox found, initializing...');
+            const lightbox = GLightbox({
+              selector: '.portfolio-lightbox'
+            });
+          } else {
+            console.warn('GLightbox not found');
+          }
+        });
+      }
+      
+      function initializeTextAnimations() {
+        console.log('Initializing text animations...');
+        
+        // Initialize wrap_text parallax animation with better error handling
+        const initWrapText = () => {
+          const text = document.querySelectorAll('.wrap_text .text');
+          console.log('Found ' + text.length + ' wrap_text elements');
+          
+          if (text.length > 0 && window.TweenMax) {
+            console.log('TweenMax found, initializing parallax...');
+            const halfX = window.innerWidth / 2;
+            const halfY = window.innerHeight / 2;
+            
+            // Initialize Z positions
+            text.forEach((el, i) => {
+              try {
+                TweenMax.set(el, { z: (i + 8) });
+              } catch(e) {
+                console.error('Error setting TweenMax z position:', e);
+              }
+            });
+            
+            // Add mousemove listener
+            const handleMouseMove = (e) => {
+              text.forEach((el, i) => {
+                try {
+                  TweenMax.to(el, 0.5, {
+                    x: (e.clientX - halfX) * (i + 1) * 0.01,
+                    y: (e.clientY - halfY) * (i + 1) * 0.01,
+                    overwrite: 'auto'
+                  });
+                } catch(e) {
+                  console.error('Error animating text element:', e);
+                }
+              });
+            };
+            
+            document.addEventListener('mousemove', handleMouseMove);
+            console.log('wrap_text parallax initialized successfully');
+          } else if (text.length > 0) {
+            console.warn('wrap_text elements found but TweenMax not loaded yet');
+          }
+        };
+        
+        // Try to initialize immediately
+        initWrapText();
+        
+        // Also try after a short delay in case TweenMax is still loading
+        setTimeout(initWrapText, 500);
+        
+        // And again after window load
+        if (document.readyState === 'loading') {
+          window.addEventListener('load', initWrapText);
+        }
+        
+        var words = document.querySelectorAll(".word_rt");
+        console.log('Found ' + words.length + ' word_rt elements');
+        if (words.length > 0) {
+          words.forEach(word => {
+            var letters = word.textContent.split("");
+            word.textContent = "";
+            letters.forEach(letter => {
+              var span = document.createElement("span");
+              span.textContent = letter;
+              span.className = "letter";
+              word.append(span);
+            });
+          });
+          
+          var currentWordIndex = 0;
+          var maxWordIndex = words.length - 1;
+          words[currentWordIndex].style.opacity = "1";
+          
+          var rotateText = () => {
+            var currentWord = words[currentWordIndex];
+            var nextWord = currentWordIndex === maxWordIndex ? words[0] : words[currentWordIndex + 1];
+            
+            Array.from(currentWord.children).forEach((letter, i) => {
+              setTimeout(() => {
+                letter.className = "letter out";
+              }, i * 80);
+            });
+            
+            nextWord.style.opacity = "1";
+            Array.from(nextWord.children).forEach((letter, i) => {
+              letter.className = "letter behind";
+              setTimeout(() => {
+                letter.className = "letter in";
+              }, 340 + i * 80);
+            });
+            
+            currentWordIndex = currentWordIndex === maxWordIndex ? 0 : currentWordIndex + 1;
+          };
+          
+          rotateText();
+          setInterval(rotateText, 4000);
+          console.log('Text animation initialized');
+        }
+      }
+      
+      function initializeHoverEffects() {
+        console.log('Initializing hover effects...');
+        jQuery(function($) {
+          $(".hover").mouseleave(function() {
+            $(this).removeClass("hover");
+          });
+        });
+      }
+
+      function initializePortfolio() {
+        console.log('Initializing portfolio...');
+        window.addEventListener('load', () => {
+          const select = (el, all = false) => {
+            el = el.trim();
+            if (all) {
+              return [...document.querySelectorAll(el)];
+            } else {
+              return document.querySelector(el);
+            }
+          };
+
+          const on = (type, el, listener, all = false) => {
+            let selectEl = select(el, all);
+            if (selectEl) {
+              if (all) {
+                selectEl.forEach(e => e.addEventListener(type, listener));
+              } else {
+                selectEl.addEventListener(type, listener);
+              }
+            }
+          };
+
+          let portfolioContainer = select('.portfolio-container');
+          if (portfolioContainer) {
+            console.log('Portfolio container found, initializing Isotope...');
+            if (window.Isotope) {
+              let portfolioIsotope = new Isotope(portfolioContainer, {
+                itemSelector: '.portfolio-item',
+                layoutMode: 'fitRows'
+              });
+
+              let portfolioFilters = select('#portfolio-flters li', true);
+
+              on('click', '#portfolio-flters li', function(e) {
+                e.preventDefault();
+                portfolioFilters.forEach(function(el) {
+                  el.classList.remove('filter-active');
+                });
+                this.classList.add('filter-active');
+
+                portfolioIsotope.arrange({
+                  filter: this.getAttribute('data-filter')
+                });
+              }, true);
+              
+              console.log('Portfolio filters initialized');
+            } else {
+              console.warn('Isotope not found');
+            }
+          }
+          
+          // Initialize portfolio item hover effects
+          const portfolioItems = select('.portfolio-item', true);
+          if (portfolioItems && portfolioItems.length > 0) {
+            console.log('Setting up hover effects for ' + portfolioItems.length + ' portfolio items');
+            portfolioItems.forEach(item => {
+              item.addEventListener('mouseenter', function() {
+                const info = this.querySelector('.portfolio-info');
+                if (info) {
+                  info.style.opacity = '1';
+                  info.style.bottom = '20px';
+                }
+              });
+              
+              item.addEventListener('mouseleave', function() {
+                const info = this.querySelector('.portfolio-info');
+                if (info) {
+                  info.style.opacity = '0';
+                  info.style.bottom = '0';
+                }
+              });
+            });
+          }
+        });
+      }
+      
+      // Initialize when page loads
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    </script>
+
+    <!-- Cloud Tag Script -->
+    <script is:inline src="/assets/js/cloud_tag_script.js"></script>
+    
+    <!-- Portfolio Hover Animation Handler -->
+    <script is:inline>
+      // Enhanced portfolio hover animation
+      function initPortfolioHover() {
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        if (portfolioItems.length === 0) {
+          console.log('No portfolio items found');
+          return;
+        }
+        
+        console.log('Initializing hover animations for ' + portfolioItems.length + ' portfolio items');
+        
+        portfolioItems.forEach(item => {
+          const info = item.querySelector('.portfolio-info');
+          
+          if (!info) {
+            console.warn('Portfolio item missing .portfolio-info element');
+            return;
+          }
+          
+          // Ensure initial state
+          info.style.opacity = '0';
+          info.style.visibility = 'visible';
+          info.style.pointerEvents = 'all';
+          
+          // Add mouseenter listener
+          item.addEventListener('mouseenter', function(e) {
+            const infoEl = this.querySelector('.portfolio-info');
+            if (infoEl) {
+              infoEl.style.opacity = '1';
+            }
+          }, false);
+          
+          // Add mouseleave listener
+          item.addEventListener('mouseleave', function(e) {
+            const infoEl = this.querySelector('.portfolio-info');
+            if (infoEl) {
+              infoEl.style.opacity = '0';
+            }
+          }, false);
+        });
+      }
+      
+      // Initialize on DOMContentLoaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPortfolioHover);
+      } else {
+        initPortfolioHover();
+      }
+      
+      // Initialize on window load
+      window.addEventListener('load', initPortfolioHover);
+      
+      // Watch for dynamically added portfolio items (React)
+      const portfolioObserver = new MutationObserver((mutations) => {
+        const hasNewPortfolioItems = mutations.some(mutation => {
+          return Array.from(mutation.addedNodes).some(node => {
+            return node.nodeType === 1 && (
+              (node.classList && node.classList.contains('portfolio-item')) ||
+              (node.querySelector && node.querySelector('.portfolio-item'))
+            );
+          });
+        });
+        
+        if (hasNewPortfolioItems) {
+          console.log('New portfolio items detected, reinitializing hover animations');
+          setTimeout(initPortfolioHover, 100);
+        }
+      });
+      
+      // Observe portfolio container for changes
+      const portfolioContainer = document.querySelector('.portfolio-container');
+      if (portfolioContainer) {
+        portfolioObserver.observe(portfolioContainer, {
+          childList: true,
+          subtree: true
+        });
+        console.log('Portfolio observer attached to container');
+      } else {
+        console.warn('Portfolio container not found for observer');
+      }
+    </script>
+    <script is:inline>
+      // Comprehensive wrap_text parallax handler
+      function setupWrapTextParallax() {
+        const textElements = document.querySelectorAll('.wrap_text .text');
+        
+        if (textElements.length === 0) {
+          console.log('No wrap_text elements found');
+          return;
+        }
+        
+        console.log('Setting up wrap_text parallax for ' + textElements.length + ' elements');
+        
+        const halfX = window.innerWidth / 2;
+        const halfY = window.innerHeight / 2;
+        
+        // Use TweenMax if available, otherwise use CSS transforms directly
+        const useTweenMax = typeof TweenMax !== 'undefined';
+        
+        if (useTweenMax) {
+          console.log('Using TweenMax for wrap_text animation');
+          // Initialize Z depth with TweenMax
+          textElements.forEach((el, i) => {
+            TweenMax.set(el, { z: (i + 8) });
+          });
+        } else {
+          console.log('TweenMax not available, using CSS transforms for wrap_text');
+          // Initialize with CSS
+          textElements.forEach((el, i) => {
+            el.style.transform = `translate3d(0, 0, ${(i + 8)}px)`;
+          });
+        }
+        
+        // Mouse move handler
+        const handleMouseMove = (event) => {
+          const moveX = event.clientX - halfX;
+          const moveY = event.clientY - halfY;
+          
+          textElements.forEach((el, i) => {
+            const x = moveX * (i + 1) * 0.01;
+            const y = moveY * (i + 1) * 0.01;
+            
+            if (useTweenMax) {
+              TweenMax.to(el, 0.5, {
+                x: x,
+                y: y,
+                overwrite: 'auto'
+              });
+            } else {
+              // Use CSS transform directly
+              el.style.transform = `translate3d(${x}px, ${y}px, ${(i + 8)}px)`;
+              el.style.transition = 'transform 0.5s ease-out';
+            }
+          });
+        };
+        
+        document.addEventListener('mousemove', handleMouseMove);
+        console.log('wrap_text parallax handler registered');
+      }
+      
+      // Setup on DOMContentLoaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupWrapTextParallax);
+      } else {
+        setupWrapTextParallax();
+      }
+      
+      // Also setup on window load for safety
+      window.addEventListener('load', setupWrapTextParallax);
+      
+      // Setup as mutation observer in case elements are added dynamically (React)
+      const observer = new MutationObserver(() => {
+        const textElements = document.querySelectorAll('.wrap_text .text');
+        if (textElements.length > 0) {
+          console.log('wrap_text elements detected via mutation observer, setting up parallax...');
+          setupWrapTextParallax();
+          observer.disconnect(); // No need to keep observing
+        }
+      });
+      
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    </script>
+    
+    <!-- Fix for hobbies hover effect -->
+    <script is:inline>
+      jQuery(function($) {
+        $(".hover").mouseleave(function() {
+          $(this).removeClass("hover");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Services from '../components/Services.astro';
+import Contact from '../components/Contact.astro';
+import SkillsCloud from '../components/SkillsCloud.astro';
+import Carousel from '../components/Carousel.astro';
+import Marquee from '../components/Marquee.astro';
+import Gallery from '../components/Gallery.astro';
+import Ravenom from '../components/Ravenom.astro';
+import VideoSection from '../components/VideoSection.astro';
+import Hobbies from '../components/Hobbies.astro';
+import HeroSection from '../react-components/HeroSection.jsx';
+import PortfolioSection from '../react-components/PortfolioSection.jsx';
+import SkillsSection from '../react-components/SkillsSection.jsx';
+import TestimonialsSection from '../react-components/TestimonialsSection.jsx';
+---
+
+<Layout>
+  <HeroSection client:load />
+  <About />
+  <Experience />
+  <SkillsCloud />
+  <Carousel />
+  <Marquee />
+  <PortfolioSection client:load />
+  <Gallery />
+  <Ravenom />
+  <Services />
+  <VideoSection />
+  <Hobbies />
+  <TestimonialsSection client:load />
+  <Contact />
+</Layout>

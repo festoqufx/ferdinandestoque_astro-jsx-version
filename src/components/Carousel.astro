@@ -1,0 +1,311 @@
+---
+// Infinity Carousel Component
+---
+
+<section id="infinity" class="infinity">
+  <div class="container_pictureSlider">
+    <div class="pictureSlider poster-main" data-setting='{"width":1000,"height":321,"posterWidth":481,"posterHeight":321,"scale":0.8,"autoPlay":true,"delay":2000,"speed":300}'>
+      <div class="poster-btn poster-prev-btn"></div>
+      <ul class="poster-list">
+        <li class="poster-item"><a href="#"><img src="/img/1.png" width="100%" height="100%" alt="carousel-1" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/2.png" width="100%" height="100%" alt="carousel-2" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/3.png" width="100%" height="100%" alt="carousel-3" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/4.png" width="100%" height="100%" alt="carousel-4" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/5.png" width="100%" height="100%" alt="carousel-5" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/6.png" width="100%" height="100%" alt="carousel-6" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/7.png" width="100%" height="100%" alt="carousel-7" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/8.png" width="100%" height="100%" alt="carousel-8" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/9.png" width="100%" height="100%" alt="carousel-9" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/10.png" width="100%" height="100%" alt="carousel-10" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/11.png" width="100%" height="100%" alt="carousel-11" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/12.png" width="100%" height="100%" alt="carousel-12" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/13.png" width="100%" height="100%" alt="carousel-13" /></a></li>
+        <li class="poster-item"><a href="#"><img src="/img/14.png" width="100%" height="100%" alt="carousel-14" /></a></li>
+      </ul>
+      <div class="poster-btn poster-next-btn"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  class PictureCarousel {
+    constructor(poster) {
+      this.poster = poster;
+      this.posterItemMain = poster.querySelector("ul.poster-list");
+      this.nextBtn = poster.querySelector("div.poster-next-btn");
+      this.prevBtn = poster.querySelector("div.poster-prev-btn");
+      this.posterItems = Array.from(poster.querySelectorAll("li.poster-item"));
+      
+      // If even number of items, clone the first one
+      if (this.posterItems.length % 2 === 0) {
+        const clone = this.posterItems[0].cloneNode(true);
+        this.posterItemMain.appendChild(clone);
+        this.posterItems = Array.from(this.posterItemMain.children);
+      }
+      
+      this.posterFirstItem = this.posterItems[0];
+      this.posterLastItem = this.posterItems[this.posterItems.length - 1];
+      this.rotateFlag = true;
+      this.timer = null;
+      
+      // Default settings
+      this.setting = {
+        width: 1000,
+        height: 270,
+        posterWidth: 640,
+        posterHeight: 270,
+        scale: 0.9,
+        speed: 500,
+        autoPlay: false,
+        delay: 5000,
+        verticalAlign: "middle"
+      };
+      
+      // Merge with data-setting attribute
+      Object.assign(this.setting, this.getSetting());
+      
+      // Initialize
+      this.setSettingValue();
+      this.setPosterPos();
+      
+      // Event listeners
+      this.nextBtn.addEventListener("click", () => {
+        if (this.rotateFlag) {
+          this.rotateFlag = false;
+          this.carouselRotate("left");
+        }
+      });
+      
+      this.prevBtn.addEventListener("click", () => {
+        if (this.rotateFlag) {
+          this.rotateFlag = false;
+          this.carouselRotate("right");
+        }
+      });
+      
+      // Auto play
+      if (this.setting.autoPlay) {
+        this.autoPlay();
+        this.poster.addEventListener("mouseenter", () => {
+          if (this.timer) clearInterval(this.timer);
+        });
+        this.poster.addEventListener("mouseleave", () => {
+          this.autoPlay();
+        });
+      }
+    }
+    
+    getSetting() {
+      const setting = this.poster.getAttribute("data-setting");
+      if (setting && setting !== "") {
+        try {
+          return JSON.parse(setting);
+        } catch (e) {
+          return {};
+        }
+      }
+      return {};
+    }
+    
+    autoPlay() {
+      this.timer = setInterval(() => {
+        this.nextBtn.click();
+      }, this.setting.delay);
+    }
+    
+    setSettingValue() {
+      // Set poster dimensions
+      this.poster.style.width = this.setting.width + "px";
+      this.poster.style.height = this.setting.height + "px";
+      this.posterItemMain.style.width = this.setting.width + "px";
+      this.posterItemMain.style.height = this.setting.height + "px";
+      
+      // Calculate button width
+      const w = (this.setting.width - this.setting.posterWidth) / 2;
+      
+      // Set navigation buttons with z-index 1001 (above center item)
+      this.nextBtn.style.width = w + "px";
+      this.nextBtn.style.height = this.setting.height + "px";
+      this.nextBtn.style.zIndex = "1001";
+      
+      this.prevBtn.style.width = w + "px";
+      this.prevBtn.style.height = this.setting.height + "px";
+      this.prevBtn.style.zIndex = "1001";
+      
+      // Set first (center) item with z-index 1000 to stay on top
+      this.posterFirstItem.style.width = this.setting.posterWidth + "px";
+      this.posterFirstItem.style.height = this.setting.posterHeight + "px";
+      this.posterFirstItem.style.left = w + "px";
+      this.posterFirstItem.style.top = "0";
+      this.posterFirstItem.style.zIndex = "1000";
+    }
+    
+    setPosterPos() {
+      const sliceItems = this.posterItems.slice(1);
+      const sliceSize = Math.floor(sliceItems.length / 2);
+      const rightSlice = sliceItems.slice(0, sliceSize);
+      let level = Math.floor(this.posterItems.length / 2);
+      const leftSlice = sliceItems.slice(sliceSize);
+      
+      // Right side positioning
+      const firstLeft = (this.setting.width - this.setting.posterWidth) / 2;
+      let rw = this.setting.posterWidth;
+      const fixOffsetLeft = firstLeft + rw;
+      let rh = this.setting.posterHeight;
+      const gap = ((this.setting.width - this.setting.posterWidth) / 2) / level;
+      
+      rightSlice.forEach((item, i) => {
+        level--;
+        rw = rw * this.setting.scale;
+        rh = rh * this.setting.scale;
+        const j = i;
+        item.style.zIndex = level.toString();
+        item.style.width = rw + "px";
+        item.style.height = rh + "px";
+        item.style.opacity = (1 / (j + 1)).toString();
+        item.style.left = (fixOffsetLeft + (i + 1) * gap - rw) + "px";
+        item.style.top = this.setVerticalAlign(rh) + "px";
+      });
+      
+      // Left side positioning
+      let lw = rightSlice.length > 0 ? parseFloat(rightSlice[rightSlice.length - 1].style.width) : this.setting.posterWidth * Math.pow(this.setting.scale, sliceSize);
+      let lh = rightSlice.length > 0 ? parseFloat(rightSlice[rightSlice.length - 1].style.height) : this.setting.posterHeight * Math.pow(this.setting.scale, sliceSize);
+      let oloop = Math.floor(this.posterItems.length / 2);
+      
+      leftSlice.forEach((item, i) => {
+        item.style.zIndex = i.toString();
+        item.style.width = lw + "px";
+        item.style.height = lh + "px";
+        item.style.opacity = (1 / oloop).toString();
+        item.style.left = (i * gap) + "px";
+        item.style.top = this.setVerticalAlign(lh) + "px";
+        lw = lw / this.setting.scale;
+        lh = lh / this.setting.scale;
+        oloop--;
+      });
+    }
+    
+    setVerticalAlign(height) {
+      const verticalType = this.setting.verticalAlign;
+      if (verticalType === "middle") {
+        return (this.setting.height - height) / 2;
+      } else if (verticalType === "top") {
+        return 0;
+      } else if (verticalType === "bottom") {
+        return this.setting.height - height;
+      }
+      return (this.setting.height - height) / 2;
+    }
+    
+    carouselRotate(dir) {
+      const zIndexArr: string[] = [];
+      const animations: Promise<void>[] = [];
+      
+      if (dir === "left") {
+        this.posterItems.forEach((item, index) => {
+          const prevIndex = index === 0 ? this.posterItems.length - 1 : index - 1;
+          const prev = this.posterItems[prevIndex];
+          
+          const targetWidth = parseFloat(prev.style.width) || prev.offsetWidth;
+          const targetHeight = parseFloat(prev.style.height) || prev.offsetHeight;
+          const targetOpacity = prev.style.opacity || "1";
+          const targetLeft = parseFloat(prev.style.left) || 0;
+          const targetTop = parseFloat(prev.style.top) || 0;
+          const targetZIndex = prev.style.zIndex || "0";
+          
+          zIndexArr.push(targetZIndex);
+          
+          animations.push(this.animate(item, {
+            width: targetWidth,
+            height: targetHeight,
+            opacity: parseFloat(targetOpacity),
+            left: targetLeft,
+            top: targetTop
+          }, this.setting.speed));
+        });
+      } else if (dir === "right") {
+        this.posterItems.forEach((item, index) => {
+          const nextIndex = index === this.posterItems.length - 1 ? 0 : index + 1;
+          const next = this.posterItems[nextIndex];
+          
+          const targetWidth = parseFloat(next.style.width) || next.offsetWidth;
+          const targetHeight = parseFloat(next.style.height) || next.offsetHeight;
+          const targetOpacity = next.style.opacity || "1";
+          const targetLeft = parseFloat(next.style.left) || 0;
+          const targetTop = parseFloat(next.style.top) || 0;
+          const targetZIndex = next.style.zIndex || "0";
+          
+          zIndexArr.push(targetZIndex);
+          
+          animations.push(this.animate(item, {
+            width: targetWidth,
+            height: targetHeight,
+            opacity: parseFloat(targetOpacity),
+            left: targetLeft,
+            top: targetTop
+          }, this.setting.speed));
+        });
+      }
+      
+      // Set z-index immediately (not animated)
+      this.posterItems.forEach((item, i) => {
+        item.style.zIndex = zIndexArr[i];
+      });
+      
+      // Wait for all animations to complete
+      Promise.all(animations).then(() => {
+        this.rotateFlag = true;
+      });
+    }
+    
+    animate(element: HTMLElement, properties: { width: number; height: number; opacity: number; left: number; top: number }, duration: number): Promise<void> {
+      return new Promise((resolve) => {
+        const startTime = performance.now();
+        const startValues = {
+          width: parseFloat(element.style.width) || element.offsetWidth,
+          height: parseFloat(element.style.height) || element.offsetHeight,
+          opacity: parseFloat(element.style.opacity) || 1,
+          left: parseFloat(element.style.left) || 0,
+          top: parseFloat(element.style.top) || 0
+        };
+        
+        const animateFrame = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Easing function (ease-out)
+          const eased = 1 - Math.pow(1 - progress, 3);
+          
+          element.style.width = (startValues.width + (properties.width - startValues.width) * eased) + "px";
+          element.style.height = (startValues.height + (properties.height - startValues.height) * eased) + "px";
+          element.style.opacity = (startValues.opacity + (properties.opacity - startValues.opacity) * eased).toString();
+          element.style.left = (startValues.left + (properties.left - startValues.left) * eased) + "px";
+          element.style.top = (startValues.top + (properties.top - startValues.top) * eased) + "px";
+          
+          if (progress < 1) {
+            requestAnimationFrame(animateFrame);
+          } else {
+            resolve();
+          }
+        };
+        
+        requestAnimationFrame(animateFrame);
+      });
+    }
+    
+    static init(posters: NodeListOf<Element> | Element[]) {
+      const elements = posters instanceof NodeList ? Array.from(posters) : posters;
+      elements.forEach((poster) => {
+        new PictureCarousel(poster as HTMLElement);
+      });
+    }
+  }
+  
+  // Initialize on DOM ready
+  document.addEventListener("DOMContentLoaded", () => {
+    const sliders = document.querySelectorAll(".pictureSlider");
+    if (sliders.length > 0) {
+      PictureCarousel.init(sliders);
+    }
+  });
+</script>
